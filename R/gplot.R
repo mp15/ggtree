@@ -49,9 +49,7 @@ gheatmap <- function(p, data, offset=0, width=1, low="green", high="red",
     ## dd <- melt(dd, id=c("lab", "y"))
     dd <- gather(dd, variable, value, -c(lab, y))
     
-    if (any(dd$value == "")) {
-        dd$value[dd$value == ""] <- NA
-    }
+    dd$value[dd$value == ""] <- NA
 
     V2 <- start + as.numeric(dd$variable) * width
     mapping <- data.frame(from=dd$variable, to=V2)
