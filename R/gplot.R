@@ -24,7 +24,7 @@
 ##' @export
 ##' @author Guangchuang Yu
 gheatmap <- function(p, data, offset=0, width=1, low="green", high="red",
-                     color="white", colnames=TRUE, colnames_position="bottom", font.size=4) {
+                     color="white", colnames=TRUE, colnames_position="bottom", font.size=4, colnames_angle=270) {
 
     colnames_position %<>% match.arg(c("bottom", "top"))
     variable <- value <- lab <- y <- NULL
@@ -74,7 +74,11 @@ gheatmap <- function(p, data, offset=0, width=1, low="green", high="red",
         } else {
             y <- max(p$data$y) + 1
         }
-        p2 <- p2 + geom_text(data=mapping, aes(x=to, label=from), y=y, size=font.size, inherit.aes = FALSE)
+        if ( colnames_angle==0 ) {
+            p2 <- p2 + geom_text(data=mapping, aes(x=to, label=from), y=y, size=font.size, inherit.aes = FALSE)
+        } else {
+            p2 <- p2 + geom_text(data=mapping, aes(x=to, label=from), y=y, size=font.size, inherit.aes = FALSE, angle=colnames_angle, hjust=0)
+        }
     }
 
     p2 <- p2 + theme(legend.position="right", legend.title=element_blank())
